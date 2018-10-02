@@ -35,39 +35,57 @@ class App extends React.Component {
       this.state.countries.filter(country =>
         country.name.includes(this.state.filter))
 
-    if (filteredCountries.length > 10) {
-      return 'too many matches, you have to be more specific than that'
+    if (this.specificCountry === undefined) {
 
-    } else if (this.specificCountry === undefined && filteredCountries.length > 1) {
+      if (filteredCountries.length > 10) {
+        return 'too many matches, you have to be more specific than that'
 
-      return (filteredCountries.map(country =>
-        <div key={country.name}>
-          <div onClick={
-            () => this.specificCountryPressed({ country })
-          }>
-            {country.name}
-          </div>
-        </div>)
-      )
+      } else if (filteredCountries.length > 1) {
+
+        return (filteredCountries.map(country =>
+          <div key={country.name}>
+            <div onClick={
+              () => this.specificCountryPressed({ country })
+            }>
+              {country.name}
+            </div>
+          </div>)
+        )
+      }
+      else {
+        return (filteredCountries.map(country =>
+          <Country key={country.name}
+            country={country}
+          />)
+        )
+      }
 
     }
     else {
-      return (filteredCountries.map(country =>
-        <Country key={country.name}
-          country={country}
-        />)
+      return (
+        console.log('moi')
+        /*,
+                filteredCountries.map(country =>
+                <Country key={country.name}
+                  country={this.specificCountry} />)
+        
+                    )
+        
+                    */
+        /*Miten toteuttaa yhden maan näyttäminen */
       )
     }
   }
-
   render() {
 
     return (
+
       <div>
         find countries: <input
           value={this.state.filter}
           onChange={this.handleCountryChange} />
         <div>
+
 
           {this.result()}
 
