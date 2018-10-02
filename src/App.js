@@ -24,6 +24,7 @@ class App extends React.Component {
   handleCountryChange = (event) => {
     console.log(event.target.value)
     this.setState({ filter: event.target.value })
+    this.setState({ specificCountry: undefined})
   }
 
   specificCountryPressed = ({ country }) => {
@@ -31,11 +32,12 @@ class App extends React.Component {
   }
 
   result = () => {
+
     const filteredCountries =
       this.state.countries.filter(country =>
         country.name.includes(this.state.filter))
 
-    if (this.specificCountry === undefined) {
+    if (this.state.specificCountry === undefined) {
 
       if (filteredCountries.length > 10) {
         return 'too many matches, you have to be more specific than that'
@@ -63,21 +65,13 @@ class App extends React.Component {
     }
     else {
       return (
-        console.log('moi')
-        /*,
-                filteredCountries.map(country =>
-                <Country key={country.name}
-                  country={this.specificCountry} />)
-        
-                    )
-        
-                    */
-        /*Miten toteuttaa yhden maan näyttäminen */
+
+          <Country country={this.state.specificCountry} />
       )
     }
   }
   render() {
-
+    console.log('specificCountry arvo: ', this.state.specificCountry)
     return (
 
       <div>
@@ -89,7 +83,7 @@ class App extends React.Component {
 
           {this.result()}
 
-          {console.log('specificCountry arvo: ', this.state.specificCountry)}
+          {/*console.log('specificCountry arvo: ', this.state.specificCountry)*/}
         </div>
 
       </div>
