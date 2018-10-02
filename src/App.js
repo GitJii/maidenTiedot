@@ -38,31 +38,25 @@ class App extends React.Component {
     if (filteredCountries.length > 10) {
       return 'too many matches, you have to be more specific than that'
 
-    } else if (filteredCountries.length > 1) {
+    } else if (this.specificCountry === undefined && filteredCountries.length > 1) {
 
-      if (this.state.specificCountry) {
-        return (filteredCountries.map(country =>
-          <div key={country.name}>
-            <div onClick={
+      return (filteredCountries.map(country =>
+        <div key={country.name}>
+          <div onClick={
+            () => this.specificCountryPressed({ country })
+          }>
+            {country.name}
+          </div>
+        </div>)
+      )
 
-              this.specificCountryPressed({ country })
-
-              /* + console.log('nappia painettu', country.name) */
-
-            }>
-              {country.name}
-            </div>
-          </div>)
-        )
-      }
-
-      else {
-        return (filteredCountries.map(country =>
-          <Country key={country.name}
-            country={country}
-          />)
-        )
-      }
+    }
+    else {
+      return (filteredCountries.map(country =>
+        <Country key={country.name}
+          country={country}
+        />)
+      )
     }
   }
 
@@ -74,10 +68,15 @@ class App extends React.Component {
           value={this.state.filter}
           onChange={this.handleCountryChange} />
         <div>
-          {result()}
+
+          {this.result()}
+
+          {console.log('specificCountry arvo: ', this.state.specificCountry)}
         </div>
 
       </div>
+
+
     )
   }
 }
